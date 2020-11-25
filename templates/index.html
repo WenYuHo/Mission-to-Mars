@@ -1,0 +1,55 @@
+<!--Type ! and enter to create a template-->
+<!--https://discuss.codecademy.com/t/if-both-br-and-br-are-valid-syntaxes-which-one-should-i-use/297872/24-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mission to Mars</title>
+        <!--Bootstrap Version 4.5.2-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header Button -->
+            <div class="jumbotron text-center">
+                <h1>Mission to Mars</h1>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/scrape" role="button" id="scrape-button">Scrape New Data</a>
+                </p>          
+            </div>
+
+            <!-- Mars News -->
+            <div class="row" id="mars-news">
+                <!-- class="row" helps align, up to 12 columns can be used within the container --> 
+                <div class="col-md-12">
+                    <div class="media">
+                        <div class="media-body">
+                            <h2>Latest Mars News</h2>
+                            <h4 class="media-heading">{{mars.news_title}}</h4>
+                            <p>{{ mars.news_paragraph }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mars Featured Image -->
+            <div class="row" id="mars-featured-image">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img src="{{ mars.featured_image }}" class="img-responsive" 
+                    alt="Responsive image">                
+                </div>
+                <!-- Mars Facts -->
+                <!-- Same level as Image -->
+                <div class="col-md-4">
+                    <div class="row" id="mars-facts">
+                        <h4>Mars Facts</h4>
+                        <!--facts table in the mars document,
+                        and this code doesn't contain anything malicious-->
+                        {{ mars.facts | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
