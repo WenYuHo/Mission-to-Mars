@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_pymongo import PyMongo
 
 import scraping
@@ -28,7 +28,14 @@ def scrape():
     # need to add an empty JSON object with {} in place of the query_parameter.
     # upsert=True, create a new document if one doesn't already exist,
     mars.update({}, mars_data, upsert=True)
-    return "Scraping Successful!"
+
+    # Instead of pritnting sucess, This should refresh the page.
+    # Image wont be refreshed every attempt, seems based on interval of at least 5 mins.
+    return redirect(url_for("index"))
+
+# @app.route('/success')
+# def success():
+#   return "Scraping Sucessfully" 
 
 if __name__ == "__main__":
     app.run()
