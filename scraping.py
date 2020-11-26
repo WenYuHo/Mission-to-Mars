@@ -21,7 +21,8 @@ def scrape_all():
       "news_paragraph": news_paragraph,
       "featured_image": featured_image(browser),
       "facts": mars_facts(),
-      "last_modified": dt.datetime.now()
+      "last_modified": dt.datetime.now(),
+      "hemispheres" : scrape_hd(browser)
     }
     
     # Stop webdriver and return data
@@ -95,6 +96,34 @@ def mars_facts():
     df.set_index('description', inplace=True)
 
     return df.to_html()
+
+# Scrape Hemisphere Data
+
+def scrape_hd(browser):
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
+    html = browser.html
+    hemis_soup = soup(html, 'html.parser')
+    hemisphere_image_urls = []
+    all_hemis = hemis_soup.select("div.description a")
+    try:
+        for hemis in all_hemis:
+            hemis_link = "https://astrogeology.usgs.gov" + hemis.get("href")
+            browser.visit(hemis_link)
+            html = browser.html
+            one_hemis_soup = soup(html, 'html.parser')
+            
+            title = one_hemis_soup.select_one("h2.title").text
+            image = one_hemis_soup.select_one("div.downloads a").get("href")
+            
+            hemispheres = {"img_url":image, "title":title}       
+            hemisphere_image_urls.append(hemispheres)
+        return hemisphere_image_urls
+    except:
+        return None
+
+
+
 
 # script is complete and ready for action.
 # The print statement will print out the results of our scraping
