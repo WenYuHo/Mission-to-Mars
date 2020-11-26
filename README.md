@@ -18,6 +18,6 @@ flask_pymongo (PyMongo).
 - Setup "Scrape" button to refresh all associated data by scraping and uploading again.
 
 Files:
-- Scrape: [scrape.py](scrape.py)
+- Scrape: [scraping.py](scraping.py)
 - App: [app.py](app.py)
 - Index: [index.html](./templates/index.html)
